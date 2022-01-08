@@ -20,18 +20,24 @@ class Header extends Component {
 
         {/* showing login/logout button based on whether the user is logged in or not */}
         {!this.state.isUserLoggedIn ? (
-          <div className="button">
+          <div className="login-logout-button">
             <Button variant="contained" color="default">
               Login
             </Button>
           </div>
         ) : (
-          <div className="button">
+          <div className="login-logout-button">
             <Button variant="contained" color="default">
               Logout
             </Button>
           </div>
         )}
+
+        <div className="bookshow-button">
+          <Button variant="contained" color="primary">
+            Book Show
+          </Button>
+        </div>
       </header>
     );
   }

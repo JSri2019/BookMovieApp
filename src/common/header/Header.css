@@ -24,6 +24,11 @@
   }
 }
 
-.button {
+.login-logout-button {
   float: right;
+}
+
+.bookshow-button {
+  float: right;
+  margin-right: 8px;
 }
