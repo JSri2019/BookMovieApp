@@ -23,3 +23,7 @@
     transform: rotateY(360deg);
   }
 }
+
+.button {
+  float: right;
+}

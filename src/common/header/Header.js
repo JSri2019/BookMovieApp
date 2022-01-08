@@ -2,13 +2,36 @@
 import React, { Component } from "react";
 import "./Header.css";
 import logo from "../../assets/logo.svg";
+import Button from "@material-ui/core/Button";
 
 class Header extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isUserLoggedIn: false,
+    };
+  }
+
   render() {
     return (
       <header className="header">
         {/* adding logo to the header */}
         <img src={logo} className="logo" alt="Logo" />
+
+        {/* showing login/logout button based on whether the user is logged in or not */}
+        {!this.state.isUserLoggedIn ? (
+          <div className="button">
+            <Button variant="contained" color="default">
+              Login
+            </Button>
+          </div>
+        ) : (
+          <div className="button">
+            <Button variant="contained" color="default">
+              Logout
+            </Button>
+          </div>
+        )}
       </header>
     );
   }
