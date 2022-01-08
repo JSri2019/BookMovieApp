@@ -24,11 +24,31 @@
   }
 }
 
+/* for login and logout buttons */
 .login-logout-button {
   float: right;
 }
 
+/* for bookshow button */
 .bookshow-button {
   float: right;
   margin-right: 8px;
+}
+
+/* for tabs in modal */
+.tabs {
+  margin-bottom: 20px;
+}
+
+/* for required fields in login form */
+.displayNone {
+  display: none;
+}
+
+.displayBlock {
+  display: block;
+}
+
+.red {
+  color: red;
 }
