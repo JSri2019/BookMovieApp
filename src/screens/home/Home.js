@@ -8,7 +8,7 @@ class Home extends Component {
     return (
       <div>
         {/* including header component */}
-        <Header />
+        <Header baseUrl={this.props.baseUrl} />
       </div>
     );
   }

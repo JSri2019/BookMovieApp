@@ -58,6 +58,7 @@ class Header extends Component {
       registerPassword: "",
       contactNoRequired: "displayNone",
       contactNo: "",
+      registrationSuccess: false,
     };
   }
 
@@ -80,6 +81,7 @@ class Header extends Component {
       registerPassword: "",
       contactNoRequired: "displayNone",
       contactNo: "",
+      registrationSuccess: false,
     });
   };
 
@@ -88,7 +90,7 @@ class Header extends Component {
   };
 
   tabChangeHandler = (event, value) => {
-    this.setState({ value });
+    this.setState({ value, registrationSuccess: false });
   };
 
   loginClickHandler = () => {
@@ -109,6 +111,7 @@ class Header extends Component {
   };
 
   registerClickHandler = () => {
+    // field validations
     this.state.firstName === ""
       ? this.setState({ firstNameRequired: "displayBlock" })
       : this.setState({ firstNameRequired: "displayNone" });
@@ -124,6 +127,30 @@ class Header extends Component {
     this.state.contactNo === ""
       ? this.setState({ contactNoRequired: "displayBlock" })
       : this.setState({ contactNoRequired: "displayNone" });
+
+    //calling API to register a user and updating registrationSuccess as true
+    let body = JSON.stringify({
+      email_address: this.state.email,
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      mobile_number: this.state.contactNo,
+      password: this.state.registerPassword,
+    });
+
+    let xhrRegister = new XMLHttpRequest();
+    let that = this;
+    xhrRegister.addEventListener("readystatechange", function () {
+      if (this.readyState === 4) {
+        that.setState({
+          registrationSuccess: true,
+        });
+      }
+    });
+
+    xhrRegister.open("POST", this.props.baseUrl + "signup");
+    xhrRegister.setRequestHeader("Content-Type", "application/json");
+    xhrRegister.setRequestHeader("Cache-Control", "no-cache");
+    xhrRegister.send(body);
   };
 
   firstNameChangeHandler = (e) => {
@@ -309,6 +336,14 @@ class Header extends Component {
                   <span className="red">required</span>
                 </FormHelperText>
               </FormControl>
+              <br />
+              <br />
+              {/* showing message when registration is successful */}
+              {this.state.registrationSuccess === true && (
+                <FormControl>
+                  <span>Registration Successful. Please Login!</span>
+                </FormControl>
+              )}
               <br />
               <br />
               <Button
