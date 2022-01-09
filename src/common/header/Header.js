@@ -41,7 +41,8 @@ class Header extends Component {
     super();
     //initial state
     this.state = {
-      isUserLoggedIn: false,
+      isUserLoggedIn:
+        sessionStorage.getItem("access-token") == null ? false : true,
       isModalOpen: false,
       value: 0,
       usernameRequired: "displayNone",
@@ -94,12 +95,46 @@ class Header extends Component {
   };
 
   loginClickHandler = () => {
+    // field validations
     this.state.username === ""
       ? this.setState({ usernameRequired: "displayBlock" })
       : this.setState({ usernameRequired: "displayNone" });
     this.state.loginPassword === ""
       ? this.setState({ loginPasswordRequired: "displayBlock" })
       : this.setState({ loginPasswordRequired: "displayNone" });
+
+    //if all fields are present then only do the login
+    if (this.state.username !== "" && this.state.loginPassword !== "") {
+      // calling backend API for login
+      let body = null;
+      let xhrLogin = new XMLHttpRequest();
+      let that = this;
+      xhrLogin.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+          sessionStorage.setItem("uuid", JSON.parse(this.responseText).id);
+          sessionStorage.setItem(
+            "access-token",
+            xhrLogin.getResponseHeader("access-token")
+          );
+
+          that.setState({
+            isUserLoggedIn: true,
+          });
+
+          that.closeModalHandler();
+        }
+      });
+
+      xhrLogin.open("POST", this.props.baseUrl + "auth/login");
+      xhrLogin.setRequestHeader(
+        "Authorization",
+        "Basic " +
+          window.btoa(this.state.username + ":" + this.state.loginPassword)
+      );
+      xhrLogin.setRequestHeader("Content-Type", "application/json");
+      xhrLogin.setRequestHeader("Cache-Control", "no-cache");
+      xhrLogin.send(body);
+    }
   };
 
   usernameChangeHandler = (e) => {
@@ -182,6 +217,16 @@ class Header extends Component {
     this.setState({ contactNo: e.target.value });
   };
 
+  logoutClickHandler = (e) => {
+    // clearing session storage on clicking logout button
+    sessionStorage.removeItem("uuid");
+    sessionStorage.removeItem("access-token");
+
+    this.setState({
+      isUserLoggedIn: false,
+    });
+  };
+
   render() {
     return (
       <div>
@@ -202,7 +247,11 @@ class Header extends Component {
             </div>
           ) : (
             <div className="login-logout-button">
-              <Button variant="contained" color="default">
+              <Button
+                variant="contained"
+                color="default"
+                onClick={this.logoutClickHandler}
+              >
                 Logout
               </Button>
             </div>
@@ -262,6 +311,14 @@ class Header extends Component {
                   <span className="red">required</span>
                 </FormHelperText>
               </FormControl>
+              <br />
+              <br />
+              {/* showing message when login is successful */}
+              {this.state.isUserLoggedIn === true && (
+                <FormControl>
+                  <span>Login Successful!</span>
+                </FormControl>
+              )}
               <br />
               <br />
               <Button
