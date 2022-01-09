@@ -128,29 +128,38 @@ class Header extends Component {
       ? this.setState({ contactNoRequired: "displayBlock" })
       : this.setState({ contactNoRequired: "displayNone" });
 
-    //calling API to register a user and updating registrationSuccess as true
-    let body = JSON.stringify({
-      email_address: this.state.email,
-      first_name: this.state.firstName,
-      last_name: this.state.lastName,
-      mobile_number: this.state.contactNo,
-      password: this.state.registerPassword,
-    });
+    //if all fields are present then only do the registration
+    if (
+      this.state.firstName !== "" &&
+      this.state.lastName !== "" &&
+      this.state.email !== "" &&
+      this.state.registerPassword !== "" &&
+      this.state.contactNo !== ""
+    ) {
+      //calling API to register a user and updating registrationSuccess as true
+      let body = JSON.stringify({
+        email_address: this.state.email,
+        first_name: this.state.firstName,
+        last_name: this.state.lastName,
+        mobile_number: this.state.contactNo,
+        password: this.state.registerPassword,
+      });
 
-    let xhrRegister = new XMLHttpRequest();
-    let that = this;
-    xhrRegister.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
-        that.setState({
-          registrationSuccess: true,
-        });
-      }
-    });
+      let xhrRegister = new XMLHttpRequest();
+      let that = this;
+      xhrRegister.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+          that.setState({
+            registrationSuccess: true,
+          });
+        }
+      });
 
-    xhrRegister.open("POST", this.props.baseUrl + "signup");
-    xhrRegister.setRequestHeader("Content-Type", "application/json");
-    xhrRegister.setRequestHeader("Cache-Control", "no-cache");
-    xhrRegister.send(body);
+      xhrRegister.open("POST", this.props.baseUrl + "signup");
+      xhrRegister.setRequestHeader("Content-Type", "application/json");
+      xhrRegister.setRequestHeader("Cache-Control", "no-cache");
+      xhrRegister.send(body);
+    }
   };
 
   firstNameChangeHandler = (e) => {
