@@ -9,6 +9,9 @@ class Home extends Component {
       <div>
         {/* including header component */}
         <Header baseUrl={this.props.baseUrl} />
+        <div className="upcoming-movies-heading">
+          <span>Upcoming Movies</span>
+        </div>
       </div>
     );
   }
