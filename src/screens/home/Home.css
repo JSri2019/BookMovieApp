@@ -1,7 +1,34 @@
 /* CSS file for Home component */
+
+/* properties for upcoming movies heading */
 .upcoming-movies-heading {
   background-color: #ff9999;
   padding: 8px;
   text-align: center;
   font-size: 1rem;
+}
+
+/* properties for scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: grey;
+}
+
+/* properties for movie poster */
+.movie-poster {
+  height: 100%;
+  width: auto;
 }
