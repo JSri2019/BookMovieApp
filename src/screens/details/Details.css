@@ -1,4 +1,6 @@
 /* CSS file for Details component */
+
+/* top-level properties */
 .details {
   text-align: left;
 }
@@ -11,15 +13,27 @@
   margin: 0px 16px;
 }
 
+/* properties for left section */
 .left-details {
   width: 20%;
   text-align: center;
 }
 
+/* properties for center section */
 .center-details {
   width: 60%;
 }
 
+/* properties for right section */
 .right-details {
   width: 20%;
+}
+
+/* other properties */
+.bold {
+  font-weight: bold;
+}
+
+.top-margin {
+  margin-top: 16px;
 }
