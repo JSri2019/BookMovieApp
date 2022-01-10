@@ -17,6 +17,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 const styles = (theme) => ({
   root: {
@@ -54,6 +55,8 @@ class Home extends Component {
       genresList: [],
       artists: [],
       artistsList: [],
+      releaseDateStart: "",
+      releaseDateEnd: "",
     };
   }
 
@@ -131,6 +134,53 @@ class Home extends Component {
 
   artistSelectHandler = (event) => {
     this.setState({ artists: event.target.value });
+  };
+
+  releaseDateStartHandler = (event) => {
+    this.setState({ releaseDateStart: event.target.value });
+  };
+
+  releaseDateEndHandler = (event) => {
+    this.setState({ releaseDateEnd: event.target.value });
+  };
+
+  filterApplyHandler = () => {
+    // building query string to include all filters applied by the user
+    let queryString = "?status=RELEASED";
+    if (this.state.movieName !== "") {
+      queryString += "&title=" + this.state.movieName;
+    }
+    if (this.state.genres.length > 0) {
+      queryString += "&genre=" + this.state.genres.toString();
+    }
+    if (this.state.artists.length > 0) {
+      queryString += "&artists=" + this.state.artists.toString();
+    }
+    if (this.state.releaseDateStart !== "") {
+      queryString += "&start_date=" + this.state.releaseDateStart;
+    }
+    if (this.state.releaseDateEnd !== "") {
+      queryString += "&end_date=" + this.state.releaseDateEnd;
+    }
+
+    // calling backend API to fetch released movies according to the filters applied
+    let that = this;
+    let bodyFilter = null;
+    let xhrFilter = new XMLHttpRequest();
+    xhrFilter.addEventListener("readystatechange", function () {
+      if (this.readyState === 4) {
+        that.setState({
+          releasedMovies: JSON.parse(this.responseText).movies,
+        });
+      }
+    });
+
+    xhrFilter.open(
+      "GET",
+      this.props.baseUrl + "movies" + encodeURI(queryString)
+    );
+    xhrFilter.setRequestHeader("Cache-Control", "no-cache");
+    xhrFilter.send(bodyFilter);
   };
 
   render() {
@@ -279,6 +329,7 @@ class Home extends Component {
                     type="date"
                     defaultValue=""
                     InputLabelProps={{ shrink: true }}
+                    onChange={this.releaseDateStartHandler}
                   />
                 </FormControl>
 
@@ -290,7 +341,21 @@ class Home extends Component {
                     type="date"
                     defaultValue=""
                     InputLabelProps={{ shrink: true }}
+                    onChange={this.releaseDateEndHandler}
                   />
+                </FormControl>
+
+                {/* apply filter button */}
+                <br />
+                <br />
+                <FormControl className={classes.formControl}>
+                  <Button
+                    onClick={this.filterApplyHandler}
+                    variant="contained"
+                    color="primary"
+                  >
+                    APPLY
+                  </Button>
                 </FormControl>
               </CardContent>
             </Card>
