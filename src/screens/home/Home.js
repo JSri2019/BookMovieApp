@@ -183,6 +183,10 @@ class Home extends Component {
     xhrFilter.send(bodyFilter);
   };
 
+  movieClickHandler = (movieId) => {
+    this.props.history.push("/movie/" + movieId);
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -227,6 +231,7 @@ class Home extends Component {
                 <GridListTile
                   className="released-movie-grid-item"
                   key={"released" + movie.id}
+                  onClick={() => this.movieClickHandler(movie.id)}
                 >
                   <img
                     src={movie.poster_url}

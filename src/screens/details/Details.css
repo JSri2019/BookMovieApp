@@ -1,1 +1,25 @@
 /* CSS file for Details component */
+.details {
+  text-align: left;
+}
+
+.flex-container-details {
+  display: flex;
+}
+
+.flex-container-details > div {
+  margin: 0px 16px;
+}
+
+.left-details {
+  width: 20%;
+  text-align: center;
+}
+
+.center-details {
+  width: 60%;
+}
+
+.right-details {
+  width: 20%;
+}
