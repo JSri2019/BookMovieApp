@@ -276,7 +276,6 @@ class Home extends Component {
                     value={this.state.genres}
                     onChange={this.genreSelectHandler}
                   >
-                    <MenuItem value="0">None</MenuItem>
                     {this.state.genresList.map((genre) => (
                       <MenuItem key={genre.id} value={genre.genre}>
                         <Checkbox
@@ -300,7 +299,6 @@ class Home extends Component {
                     value={this.state.artists}
                     onChange={this.artistSelectHandler}
                   >
-                    <MenuItem value="0">None</MenuItem>
                     {this.state.artistsList.map((artist) => (
                       <MenuItem
                         key={artist.id}
