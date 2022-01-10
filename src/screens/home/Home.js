@@ -6,6 +6,12 @@ import { withStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import FormControl from "@material-ui/core/FormControl";
+import Typography from "@material-ui/core/Typography";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
 
 const styles = (theme) => ({
   root: {
@@ -21,6 +27,14 @@ const styles = (theme) => ({
     transform: "translateZ(0)",
     cursor: "pointer",
   },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 240,
+    maxWidth: 240,
+  },
+  formTitle: {
+    color: theme.palette.primary.light,
+  },
 });
 
 class Home extends Component {
@@ -30,6 +44,7 @@ class Home extends Component {
     this.state = {
       upcomingMovies: [],
       releasedMovies: [],
+      movieName: "",
     };
   }
 
@@ -66,6 +81,10 @@ class Home extends Component {
     xhrReleased.setRequestHeader("Cache-Control", "no-cache");
     xhrReleased.send(bodyReleased);
   }
+
+  movieNameChangeHandler = (event) => {
+    this.setState({ movieName: event.target.value });
+  };
 
   render() {
     const { classes } = this.props;
@@ -130,7 +149,25 @@ class Home extends Component {
               ))}
             </GridList>
           </div>
-          <div className="right"></div>
+          {/* filter section */}
+          <div className="right">
+            <Card>
+              <CardContent>
+                <FormControl className={classes.formControl}>
+                  <Typography className={classes.formTitle}>
+                    FIND MOVIES BY:
+                  </Typography>
+                </FormControl>
+                <FormControl className={classes.formControl}>
+                  <InputLabel htmlFor="movieName">Movie Name</InputLabel>
+                  <Input
+                    id="movieName"
+                    onChange={this.movieNameChangeHandler}
+                  />
+                </FormControl>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     );
