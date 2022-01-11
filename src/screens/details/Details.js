@@ -4,6 +4,9 @@ import Header from "../../common/header/Header";
 import "./Details.css";
 import Typography from "@material-ui/core/Typography";
 import YouTube from "react-youtube";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
 
 class Details extends Component {
   constructor() {
@@ -36,6 +39,10 @@ class Details extends Component {
     xhrMovie.setRequestHeader("Cache-Control", "no-cache");
     xhrMovie.send(bodyMovie);
   }
+
+  artistClickHandler = (url) => {
+    window.location = url;
+  };
 
   render() {
     let movie = this.state.movie;
@@ -103,7 +110,33 @@ class Details extends Component {
           </div>
 
           {/* right section */}
-          <div className="right-details"></div>
+          <div className="right-details">
+            <div className="bold top-margin bottom-margin">
+              <Typography>
+                <span className="bold">Artists:</span>
+              </Typography>
+            </div>
+            <div className="padding-right">
+              <GridList cellHeight={160} cols={2}>
+                {movie.artists != null &&
+                  movie.artists.map((artist) => (
+                    <GridListTile
+                      className="grid-list-tile"
+                      onClick={() => this.artistClickHandler(artist.wiki_url)}
+                      key={artist.id}
+                    >
+                      <img
+                        src={artist.profile_url}
+                        alt={artist.first_name + " " + artist.last_name}
+                      />
+                      <GridListTileBar
+                        title={artist.first_name + " " + artist.last_name}
+                      />
+                    </GridListTile>
+                  ))}
+              </GridList>
+            </div>
+          </div>
         </div>
       </div>
     );

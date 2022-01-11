@@ -13,18 +13,18 @@
   margin: 0px 16px;
 }
 
-/* properties for left section */
+/* width for left section */
 .left-details {
   width: 20%;
   text-align: center;
 }
 
-/* properties for center section */
+/* width for center section */
 .center-details {
   width: 60%;
 }
 
-/* properties for right section */
+/* width for right section */
 .right-details {
   width: 20%;
 }
@@ -36,6 +36,10 @@
 
 .top-margin {
   margin-top: 16px;
+}
+
+.bottom-margin {
+  margin-bottom: 16px;
 }
 
 .trailer-margin {
@@ -59,4 +63,8 @@
   .padding-right {
     margin-right: 32px;
   }
+}
+
+.grid-list-tile {
+  cursor: pointer;
 }
