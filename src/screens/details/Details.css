@@ -37,3 +37,26 @@
 .top-margin {
   margin-top: 16px;
 }
+
+.trailer-margin {
+  margin: 16px 0px 16px 0px !important;
+}
+
+@media (max-width: 992px) {
+  .left-details {
+    width: 100%;
+    text-align: center;
+  }
+  .center-details {
+    width: 90%;
+  }
+  .right-details {
+    width: 100%;
+  }
+  .flex-container-details {
+    flex-direction: column;
+  }
+  .padding-right {
+    margin-right: 32px;
+  }
+}
