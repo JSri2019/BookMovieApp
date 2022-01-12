@@ -90,3 +90,8 @@
   height: 24px;
   cursor: pointer;
 }
+
+/* removing underline from all anchor tags (includes Link components) */
+a {
+  text-decoration: none;
+}
