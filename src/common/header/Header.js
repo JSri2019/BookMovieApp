@@ -66,6 +66,7 @@ class Header extends Component {
 
   // event handlers
   openModalHandler = () => {
+    // clearing state values on opening modal
     this.setState({
       isModalOpen: true,
       value: 0,
@@ -92,7 +93,25 @@ class Header extends Component {
   };
 
   tabChangeHandler = (event, value) => {
-    this.setState({ value, registrationSuccess: false });
+    // clearing state values on changing modal tabs
+    this.setState({
+      value,
+      usernameRequired: "displayNone",
+      username: "",
+      loginPasswordRequired: "displayNone",
+      loginPassword: "",
+      firstNameRequired: "displayNone",
+      firstName: "",
+      lastNameRequired: "displayNone",
+      lastName: "",
+      emailRequired: "displayNone",
+      email: "",
+      registerPasswordRequired: "displayNone",
+      registerPassword: "",
+      contactNoRequired: "displayNone",
+      contactNo: "",
+      registrationSuccess: false,
+    });
   };
 
   loginClickHandler = () => {
