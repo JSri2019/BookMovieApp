@@ -111,7 +111,8 @@ class Header extends Component {
       let xhrLogin = new XMLHttpRequest();
       let that = this;
       xhrLogin.addEventListener("readystatechange", function () {
-        if (this.readyState === 4) {
+        // set values in sessionStorage and state only when login is successful (status code 200)
+        if (this.readyState === 4 && this.status === 200) {
           sessionStorage.setItem("uuid", JSON.parse(this.responseText).id);
           sessionStorage.setItem(
             "access-token",
