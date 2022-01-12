@@ -7,6 +7,7 @@ import YouTube from "react-youtube";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
 
 class Details extends Component {
   constructor() {
@@ -14,6 +15,28 @@ class Details extends Component {
     // initial state
     this.state = {
       movie: { genres: [], trailer_url: "" },
+      stars: [
+        {
+          id: 1,
+          color: "black",
+        },
+        {
+          id: 2,
+          color: "black",
+        },
+        {
+          id: 3,
+          color: "black",
+        },
+        {
+          id: 4,
+          color: "black",
+        },
+        {
+          id: 5,
+          color: "black",
+        },
+      ],
     };
   }
 
@@ -41,7 +64,23 @@ class Details extends Component {
   }
 
   artistClickHandler = (url) => {
+    // opens the given URL
     window.location = url;
+  };
+
+  starClickHandler = (id) => {
+    // setting all stars till the clicked star as yellow
+    let starList = [];
+    for (let star of this.state.stars) {
+      let starNode = star;
+      if (star.id <= id) {
+        starNode.color = "yellow";
+      } else {
+        starNode.color = "black";
+      }
+      starList.push(starNode);
+    }
+    this.setState({ stars: starList });
   };
 
   render() {
@@ -111,6 +150,19 @@ class Details extends Component {
 
           {/* right section */}
           <div className="right-details">
+            {/* Rate this movie section */}
+            <Typography>
+              <span className="bold">Rate this movie:</span>
+            </Typography>
+            {this.state.stars.map((star) => (
+              <StarBorderIcon
+                className={star.color}
+                key={"star" + star.id}
+                onClick={() => this.starClickHandler(star.id)}
+              />
+            ))}
+
+            {/* Artists section */}
             <div className="bold top-margin bottom-margin">
               <Typography>
                 <span className="bold">Artists:</span>
