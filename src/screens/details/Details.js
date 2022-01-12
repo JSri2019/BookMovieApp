@@ -8,6 +8,7 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+import { Link } from "react-router-dom";
 
 class Details extends Component {
   constructor() {
@@ -95,6 +96,12 @@ class Details extends Component {
     return (
       <div className="details">
         <Header />
+        {/* back to home link */}
+        <div className="back">
+          <Typography>
+            <Link to="/">&#60; Back to Home</Link>
+          </Typography>
+        </div>
         <div className="flex-container-details">
           {/* left section */}
           <div className="left-details">
