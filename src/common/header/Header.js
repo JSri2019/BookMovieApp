@@ -12,6 +12,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import PropTypes from "prop-types";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import { Link } from "react-router-dom";
 
 const customStyles = {
   content: {
@@ -257,12 +258,37 @@ class Header extends Component {
             </div>
           )}
 
-          {/* adding book show button */}
-          <div className="bookshow-button">
-            <Button variant="contained" color="primary">
-              Book Show
-            </Button>
-          </div>
+          {/* adding book show button and 
+           showing book show button only when showBookShowButton is true and
+           opening login/register modal when user is not logged in and 
+           opening book show page when the user is logged in */}
+          {this.props.showBookShowButton === "true" &&
+          !this.state.isUserLoggedIn ? (
+            <div className="bookshow-button">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.openModalHandler}
+              >
+                Book Show
+              </Button>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {this.props.showBookShowButton === "true" &&
+          this.state.isUserLoggedIn ? (
+            <div className="bookshow-button">
+              <Link to={"/bookshow/" + this.props.id}>
+                <Button variant="contained" color="primary">
+                  Book Show
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            ""
+          )}
         </header>
 
         {/* adding modal and tabs for login button functionality */}

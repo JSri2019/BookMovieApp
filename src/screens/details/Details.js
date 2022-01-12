@@ -95,7 +95,12 @@ class Details extends Component {
     };
     return (
       <div className="details">
-        <Header />
+        {/* setting showBookShowButton as true for header */}
+        <Header
+          id={this.props.match.params.id}
+          baseUrl={this.props.baseUrl}
+          showBookShowButton="true"
+        />
         {/* back to home link */}
         <div className="back">
           <Typography>
